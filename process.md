@@ -79,7 +79,7 @@ An idea that needs trying before deciding (a 3D scene, a video for the launch, a
 | [Design system](#design-system) | At the end of a mock-up, a new token | Tokens and decisions in `docs/branding.md` | Colors, sizes and typography are written as tokens. |
 | [Build](#build) | Always | One pull request per step | The step's box of `roadmap.md` is checked. |
 | [Launch](#launch) | The first cycle, a new domain or new addresses | Site on `github.io`, then on its domain | The owner has checked the site and switched the DNS. |
-| [Retrospective](#retrospective) | The end of a cycle, or a phase that went badly | Changes to this file, the templates and the backlog | The lessons are written down. |
+| [Retrospective](#retrospective) | The end of a cycle, or a phase that went badly | Changes to this file, the templates and the backlog | Each lesson of `docs/lessons.md` is sorted where it applies (this file, `CLAUDE.md`, the skills, the agents, the templates) or dropped; the backlog is sorted. |
 
 ## Start a project
 
@@ -102,7 +102,7 @@ Goal: agree on **what** the site says and does before deciding **how**. For a ch
    - What is the main action of the visitor, and what happens after it?
    - Is there a former site, whose URLs must keep working?
 2. **Ask for the brand assets**, and record in `docs/branding.md` (Brand assets) what is given and what is missing: the logo (symbol and wordmark) on a dark and on a light background, in SVG if possible; a square icon for the favicon; the colors and fonts of an existing charter, with the license of each font; the photos and their rights; the logos of the partners or clients and the permission to show them; the public contact details and the legal information. The favicon and the preview card of the links are made from them (`npm run brand:images`).
-3. **Check the external services early** (GitHub Pages, and a form service or analytics if the site needs one): documentation, limits, terms of use, personal data, licenses of the images and fonts. Record the limits and every risk the owner accepts, with its date, in `docs/external-services.md`.
+3. **Check the external services early** (GitHub Pages, and a form service or analytics if the site needs one): documentation, limits, terms of use, personal data, licenses of the images and fonts. Record the limits and every risk the owner accepts, with its date, in `docs/external-services.md`. Size the hosting to the need, and give its yearly costs before proposing any infrastructure: a VPS with a deployment platform was planned for a static download page, where Cloudflare Pages or GitHub Pages suffice for free.
 4. Write `specs.md`: behavior and content only (what the visitor sees, what each action does, the URLs and redirects, edge cases).
 5. Confirm or adapt the technical choices of `docs/technical-choices.md`, with their reasons (and the alternatives rejected), then write the steps in `roadmap.md`, each small enough for one pull request. Choose only what the specifications need: the JavaScript libraries and the weight of script a page may carry wait for the mock-up (on sylent.art, « no JavaScript » was written before the mock-up and replaced after it by GSAP and Three.js).
 6. Open the pull request; the owner reads the files on GitHub (**Files changed**) or in VS Code.
@@ -192,21 +192,24 @@ The owner looks at the preview on their phone after each page step, rather than 
 
 ## Launch
 
+Before the launch, a **quality review of the whole site, area by area** (a step of `roadmap.md`): `code-reviewer` in its area mode, one pass per area at once (the layouts and components, the pages, the styles, the scripts and the build), each told what the others read and given the results of `npm run check` run once before them, against SOLID, DRY and KISS. Its findings are split into pull requests: the fixes of behavior first, then what needs a mock-up, the moves last. On rust-exile-market it found what the reviews of the branches couldn't, and was worth four pull requests.
+
 1. The owner checks every page on the `github.io` address, at phone and desktop width.
 2. The site is ready to share: not-found page, redirect pages, sitemap, `robots.txt`, favicon, Open Graph tags and the preview card, checked with the LinkedIn Post Inspector and the Facebook Sharing Debugger.
 3. The owner verifies the domain in their GitHub account (**Settings → Pages → Verified domains**, a TXT record). The custom domain field of the repository stays empty until the switch: filled earlier, it redirects the `github.io` preview to the old site.
-4. Claude Code checks that every former URL resolves and describes the DNS records to set (GitHub Pages `A` and `AAAA` on the apex, `www` as a CNAME to `<owner>.github.io.`); the owner lowers their TTL a day before, then changes the DNS (never Claude Code).
+4. Claude Code checks that every former URL resolves and describes the DNS records to set (GitHub Pages `A` and `AAAA` on the apex, `www` as a CNAME to `<owner>.github.io.`); the owner lowers their TTL a day before, then changes the DNS (never Claude Code). Never query a DNS name before its record exists: the negative answer stays cached up to the TTL of the zone (its SOA), which delayed the checks and once made the domain check of GitHub fail. Create the record first, then check it.
 5. Once the domain points to GitHub Pages: set the custom domain in the Pages settings, enforce HTTPS, delete the `SITE_URL` and `BASE_PATH` repository variables and run the deployment again, then check that `www` and `github.io` redirect to the domain.
 6. Submit the sitemap to the search engines (Google Search Console, Bing Webmaster Tools) if the owner wants to.
 
 ## Retrospective
 
-At the end of each cycle (the first one ends with the launch), or after any tool that went badly:
+Often, like the refactoring, rather than one big one at the end: the first right after the launch, while the lessons are fresh and the visitors' feedback takes time to come; the next after the polish that follows, with that feedback; then at the end of each cycle, or after any tool that went badly:
 
-1. What took longer than expected? What had to be redone? What did the owner like most?
-2. Sort the backlog: the leftovers and the ideas of the cycle go in, what is done or no longer wanted goes out.
-3. Read Claude Code's memory of the project: a rule or a preference that holds for the whole project moves to `CLAUDE.md` or this file, where the next sessions and the templates find it.
-4. Update this file, and the template (`CLAUDE.md`, `process.md`, the skills, the skeleton) when the lesson applies to every website.
+1. What took longer than expected? What had to be redone? What did the owner like most? Did the models recommended for the steps hold (`roadmap.md`, Models)?
+2. Sort the lessons of `docs/lessons.md` one by one with the owner, by batches of about fifteen, the decision written on each line: into this file, `CLAUDE.md`, a skill or an agent of this project, into the templates (this one, and the Rust templates when the lesson holds for them too), or dropped.
+3. Sort the backlog: the leftovers and the ideas of the cycle go in, what is done or no longer wanted goes out.
+4. Read Claude Code's memory of the project: a rule or a preference that holds for the whole project moves to `CLAUDE.md` or this file, where the next sessions and the templates find it.
+5. Update this file, and the template (`CLAUDE.md`, `process.md`, the skills, the skeleton) when the lesson applies to every website.
 
 ## Lessons learned
 

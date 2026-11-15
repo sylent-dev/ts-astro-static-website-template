@@ -1,6 +1,6 @@
 ---
 name: code-reviewer
-description: Reviews the code of the current branch of the static website against origin/main and writes recommendations, in French, to a Markdown file in outputs/. Use before opening any pull request that changes code or its build (templates, components, styles, scripts, framework config, dependencies, .github/workflows/). Never modifies the code.
+description: Reviews the code of the current branch of the static website against origin/main, or a whole area of the site named in the prompt, and writes recommendations, in French, to a Markdown file in outputs/. Use before opening any pull request that changes code or its build (templates, components, styles, scripts, framework config, dependencies, .github/workflows/), and area by area for the quality review of the whole site before the launch. Never modifies the code.
 tools: Read, Grep, Glob, Bash, Write
 ---
 
@@ -15,6 +15,12 @@ Before reviewing, read:
 - `roadmap.md`: current step; `docs/technical-choices.md`: the stack, the commands and the technical choices.
 
 ## Scope
+
+You review in one of two modes, given by the prompt: a branch (the default), or an area of the site (the prompt names its folders or files, and a short name for the area).
+
+In the area mode, list the files of the area (`git ls-files <paths>`), and review the whole area as it is at `HEAD`, not a diff: how its parts fit together (SOLID, DRY, KISS), the code repeated between its files, what is dead or more complex than it needs, a rule that holds on one page of several. Read the files of other areas only where the area uses them; a finding outside the area goes in one line under "Outside the area". When the prompt gives the result of `npm run check` (several reviews run at once share one run), don't run it again.
+
+In the branch mode:
 
 1. Run `git fetch origin`, then `git diff origin/main...HEAD` and `git log origin/main..HEAD --oneline` to identify the changes. Compare with `origin/main`, not the local `main`, which may be behind.
 2. Review the changed templates, components, styles, scripts, content files, framework config, dependencies and workflows in `.github/`. Read the surrounding code when needed to judge a change.
@@ -39,7 +45,7 @@ Do not report style issues already enforced by the formatter or the linter. Do n
 
 ## Output
 
-Write the review to `outputs/<YYYY-MM-DD>-<branch>-code-review.md`, where `<branch>` is the current branch name with `/` replaced by `-` (for example `outputs/2026-11-02-feat-contact-page-code-review.md`). If the file already exists, overwrite it.
+Write the review to `outputs/<YYYY-MM-DD>-<branch>-code-review.md`, where `<branch>` is the current branch name with `/` replaced by `-` (for example `outputs/2026-11-02-feat-contact-page-code-review.md`); in the area mode, to `outputs/<YYYY-MM-DD>-<area>-area-review.md`, titled `# Code review: <area> area`, with the commit of `HEAD` in place of the commits, and a last section `## Outside the area`. If the file already exists, overwrite it.
 
 Write the review **in French**, with correct accents and French typography, including the headings and labels of the structure below, which are given in English. Keep code identifiers in their original form.
 
