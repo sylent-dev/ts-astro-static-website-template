@@ -7,6 +7,8 @@
 - Ask a few numbered open questions at a time, in plain text, the main one first, rather than multiple-choice forms: the owner prefers to answer freely, often by voice dictation (interpret the misspelled names, and confirm when an answer is ambiguous). An unanswered question takes Claude Code's recommendation.
 - Keep a critical eye on the owner's ideas: give a clear opinion with its reason, point out the consequence a choice hides (URLs, search ranking, content model), offer an alternative, then follow the owner's decision.
 - The first time a design or tooling term comes up (design token, scoped style, canonical link…), explain it in plain words with a short example.
+- While the owner has said to wait for their signal, the notification of a background task isn't one: one line of status at most, no command. Before a pause, say what is still running and will report.
+- A practice Claude Code would add to the method (a series of checks, a habit that costs time, tokens or the machine) is proposed to the owner first, with what it brings and what it costs, and becomes a rule only once accepted: a habit is never written down as the method.
 
 ## Project
 
@@ -43,6 +45,7 @@
 - When an idea, a small touch or an edge case comes up that is not part of the current step, add it to `backlog.md` (process.md, The backlog), with its kind, what it depends on and the date, rather than keeping it only in the memory. Read `backlog.md` only when the next work is chosen: when no step is left in `roadmap.md`, or at the end of a cycle, propose the next items to the owner with their cost and dependencies.
 - Read `specs.md` by section: list its headings first (`grep -n '^#' specs.md`), then read only the sections the step needs.
 - When the pull request of a step (or of a sub-step) is merged, tell the owner that the step is done and remind them to start a new session for the next step by typing `/clear` (give them the command): a fresh session costs far fewer tokens, and `roadmap.md` and the memory hold what is needed to resume.
+- Claude Code's note of the state of the session, in its memory, holds the current state only (where the work stands, what comes next, what is still owed), replaced at each session, never added to: read whole at each resumption, a note that grows by a section a session costs more each time. The commands, the tools and the pitfalls go in a note of their own, read when needed; the history stays in `roadmap.md`, its archive and Git.
 
 ## Connectors
 
@@ -71,6 +74,11 @@ Two folders are the exchange area between the owner and Claude Code. They are ig
 - A test that needs extra code (a delay, a simulated click) runs on a copy of the page, never on the file the owner has open. Stop the helper processes by their PID, never with `pkill -f` and a pattern that also matches Claude Code's own command.
 - Every design decision settled with the owner goes into `docs/branding.md`, in the same commit as the change, and the options set aside into its « Set aside » list.
 - When a deliverable is handed to the owner to look at (a drawing, the mock-up, a preview), wait for their approval before writing it into `specs.md` or opening the pull request: « let's go » is not an approval of something they haven't seen yet.
+
+## Lessons
+
+- When the owner corrects how Claude Code works, or a practice proves useful, add one line to `docs/lessons.md` at once (its date, the lesson, where it may go), in the pull request of the step under way: the retrospective of each cycle (process.md, Retrospective) sorts them into the template, this `CLAUDE.md`, the skills or the agents.
+- Hold a retrospective often, like the refactoring, rather than one big one at the end: the first right after the launch, while the lessons are fresh and the visitors' feedback takes time to come; the next after the polish that follows, with that feedback.
 
 ## Git workflow
 

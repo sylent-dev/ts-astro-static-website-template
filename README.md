@@ -11,7 +11,7 @@ Template for static brand websites built with [Astro](https://astro.build/) and 
 | `process.md`, `docs/process.svg`, `docs/process-light.svg` | How a site goes from an idea to online and keeps growing: a toolbox (specifications, structure, wireframes, mock-up, design system, build, launch, retrospective) picked for each change, a backlog and a roadmap, the urgent fixes and the explorations, with its diagram, dark and light (the README and `process.md` show the light one). |
 | `design-journal.md` | The design experiences of past projects: choices kept and rejected, and why. A source of ideas, not rules. |
 | `CLAUDE.md` | Rules for Claude Code: communication, naming, language and French typography, specifications and roadmap, Git workflow, commit messages, code review, checks, deployment. |
-| `.claude/agents/code-reviewer.md` | Subagent that reviews a branch before its pull request and writes its notes, in French, to `outputs/`. |
+| `.claude/agents/code-reviewer.md` | Subagent that reviews a branch before its pull request, or the whole site area by area before the launch, and writes its notes, in French, to `outputs/`. |
 | `.claude/agents/dependency-reviewer.md` | Subagent that reviews the open Dependabot pull requests and tells, in French, which to merge or set aside, with their links and the comments to post. |
 | `.claude/skills/excalidraw-wireframes/` | Skill: editable Excalidraw wireframes and content trees, iterated with the owner. |
 | `.claude/skills/html-mockups/` | Skill: the HTML mock-up built from the wireframes, styles and open decisions compared with tabs, a server without cache, then the design tokens. |
@@ -19,6 +19,7 @@ Template for static brand websites built with [Astro](https://astro.build/) and 
 | `specs.md`, `roadmap.md`, `backlog.md` | Skeletons of the specifications, of the roadmap (the size of the project and the steps of the first cycle) and of the backlog (polish, edge cases, features, large works, waiting on others). |
 | `docs/technical-choices.md` | The stack and its reasons, the commands, the deployment, the checks. |
 | `docs/branding.md` | The brand assets to ask for, then the visual identity and every design decision, with the tokens. |
+| `docs/lessons.md` | The lessons kept for the retrospectives. |
 | `docs/external-services.md` | The limits and terms of GitHub Pages, and the risks accepted by the owner. |
 | `src/` | The Astro skeleton: base layout (metadata, favicon, Open Graph), header and footer, design tokens, home page, legal notice, not-found page, redirect page in French, `robots.txt`; French texts in `src/i18n/fr.json` and `src/content/`. |
 | `src/data/urls.json` | The former addresses: kept as pages, redirected, or dropped. |
