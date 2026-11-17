@@ -40,6 +40,7 @@ Only run read-only commands (`git fetch`, `git diff`, `git log`, the build and t
 - **Design**: reuse of the design tokens of `src/styles/tokens.css` (no raw color or size), consistency with `docs/branding.md` and `docs/technical-choices.md`, separation of concerns, duplication.
 - **Conformity**: behavior matches `specs.md`, conventions match `CLAUDE.md`.
 - **Dependencies**: necessity of each new package.
+- **Outside formats**: a test or a reading of an outside format (the answer of a service, a file it writes) takes its cases from a real answer, with its source and date, never from a text written in the shape the author expects.
 
 Do not report style issues already enforced by the formatter or the linter. Do not invent problems: if the code is good, say so.
 
